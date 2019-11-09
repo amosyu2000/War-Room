@@ -160,7 +160,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Updates the verse of the day by fetching and parsing Bible Gateway's verse of the day
+    // Updates the verse of the day by fetching and scraping Bible Gateway's verse of the day
     private class updateVOTD extends AsyncTask<Void, Void, Void> {
         private String verse;
         private String bible_version;
@@ -180,11 +180,11 @@ public class MainActivity extends AppCompatActivity {
                 String URL = "https://www.biblegateway.com/votd/get/?format=html&version="+bible_version;
                 Document document = Jsoup.connect(URL).get();
                 verse = document.select("div").text();
-                verse = verse.substring(verse.indexOf("“")+1, verse.indexOf("”"));
+                verse = "“" + verse.substring(verse.indexOf("“")+1, verse.lastIndexOf("”")) + "”";
                 verse += "\n\n"+document.select("a").first().text();
-                verse += " ("+bible_version+")";
+                verse += " (" + bible_version + ")";
 
-                // Store the verse of the day (for later, if the user doesn't have internet)
+                // Store the verse of the day (for later, if the user doesn't have internet
                 SharedPreferences.Editor editor = res.edit();
                 editor.putString("votd", verse);
                 editor.apply();
@@ -271,6 +271,7 @@ public class MainActivity extends AppCompatActivity {
     static final int ADD_PERSON_REQUEST_CODE = 1;
     public void addPersonMain(View v) {
         Intent intent = new Intent(this, AddPersonActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivityForResult(intent, ADD_PERSON_REQUEST_CODE);
     }
 
@@ -285,6 +286,7 @@ public class MainActivity extends AppCompatActivity {
     // Called by the calendar button. Opens WeekViewActivity
     public void openWeekView(View v) {
         Intent intent = new Intent(this, WeekViewActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 

@@ -13,6 +13,9 @@ import android.view.View;
 
 import com.google.android.material.tabs.TabLayout;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class WeekViewActivity extends AppCompatActivity {
     private SharedPreferences weekList;
     private Toolbar toolbar;
@@ -40,6 +43,13 @@ public class WeekViewActivity extends AppCompatActivity {
         viewPager.setAdapter(new ViewPagerAdapter(getSupportFragmentManager()));
         tabLayout = findViewById(R.id.week_tabLayout);
         tabLayout.setupWithViewPager(viewPager);
+
+        // Open the tab of the current day of the week
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("u");
+        int current_day = Integer.parseInt(simpleDateFormat.format(new Date()));
+        int index = current_day%7;
+        TabLayout.Tab tab = tabLayout.getTabAt(index);
+        tab.select();
     }
 
     public class ViewPagerAdapter extends FragmentPagerAdapter {

@@ -12,11 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".WeekViewActivity"></activity>
-        <activity
-            android:name=".EditPersonActivity"
+        <activity android:name=".EditPersonActivity"
             android:theme="@style/AppTheme.AddPerson" />
-        <activity
-            android:name=".AddPersonActivity"
+        <activity android:name=".AddPersonActivity"
             android:theme="@style/AppTheme.AddPerson" />
         <activity android:name=".MainActivity">
             <intent-filter>
